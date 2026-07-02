@@ -4,6 +4,7 @@ import ErrorBoundary from "./tools/ErrorBoundary";
 import ProtectedRoute from "./tools/ProtectedRoute";
 import Login from "./pages/Login";
 import LogOut from "./pages/LogOut";
+import Register from "./pages/Register";
 export default function App() {
   return (
     <div className="flex h-screen">
@@ -12,7 +13,9 @@ export default function App() {
         <div className="h-fit  ">
           <Routes>
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<LogOut />} />
           </Routes>
         </div>
