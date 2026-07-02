@@ -1,0 +1,63 @@
+import { Link , useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {login} from "../api";
+export default function Login() {
+  const [formData, setFormData] = useState({
+    login: "",
+    password: ""
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent page reload
+    setError("");
+    setLoading(true);
+    try {
+      const result = await login(formData);
+
+      // Save token
+      localStorage.setItem("token", result.access_token);
+      localStorage.setItem("username", result.user.username);
+
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-lg w-80 flex flex-col items-center gap-4">
+        <h1 className="text-2xl font-bold text-center">Login</h1>
+        {/* Error Box */}
+        {error && (
+          <div className="bg-red-100 text-red-700 p-2 rounded">{error}</div>
+        )}
+        
+        <label htmlFor="login">Login</label>      
+        <input onChange={handleChange} placeholder="Username or Email Address" value={formData.login} id="login" name="login" className="border p-2 rounded-lg w-full"  required/>
+
+        <label htmlFor="password">Password</label>
+        <input onChange={handleChange} placeholder="Password" value={formData.password} id="password" type="password" className="border p-2 rounded-lg w-full"   name="password" required/>
+
+        <button type="submit" disabled={loading} className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700">{loading ? "Logging in..." : "Login"}</button>
+        <p>No account? 
+          <Link to="/register" className="ml-2 text-green-600 font-medium hover:underline">
+              Register
+          </Link>
+        </p>      
+      </form>
+    </div>
+  );
+} 

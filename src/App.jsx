@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import ErrorBoundary from "./tools/ErrorBoundary";
+import ProtectedRoute from "./tools/ProtectedRoute";
+import Login from "./pages/Login";
+import LogOut from "./pages/LogOut";
 export default function App() {
   return (
     <div className="flex h-screen">
@@ -8,7 +11,9 @@ export default function App() {
       <div className="overflow-y-auto w-full ">
         <div className="h-fit  ">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<LogOut />} />
           </Routes>
         </div>
       </div>
