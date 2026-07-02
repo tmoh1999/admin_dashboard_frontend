@@ -5,8 +5,8 @@ export default function App() {
   return (
     <div className="flex h-screen">
       <ErrorBoundary>
-      <div className="overflow-y-auto w-full">
-        <div className="ml-2  h-fit ">
+      <div className="overflow-y-auto w-full ">
+        <div className="h-fit  ">
           <Routes>
             <Route path="/" element={<Dashboard />} />
           </Routes>
