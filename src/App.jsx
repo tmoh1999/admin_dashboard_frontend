@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import LogOut from "./pages/LogOut";
 import Register from "./pages/Register";
 import Sidebar from "./components/SideBar";
+import UserProfile from "./pages/UserProfile";
 export default function App() {
   return (
     <div className="flex h-screen">
@@ -16,6 +17,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<LogOut />} />
