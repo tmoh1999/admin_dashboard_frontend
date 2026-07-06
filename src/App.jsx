@@ -5,10 +5,12 @@ import ProtectedRoute from "./tools/ProtectedRoute";
 import Login from "./pages/Login";
 import LogOut from "./pages/LogOut";
 import Register from "./pages/Register";
+import Sidebar from "./components/SideBar";
 export default function App() {
   return (
     <div className="flex h-screen">
       <ErrorBoundary>
+      <Sidebar />  
       <div className="overflow-y-auto w-full ">
         <div className="h-fit  ">
           <Routes>
