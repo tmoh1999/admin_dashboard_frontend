@@ -45,12 +45,12 @@ return (
         ):(
             <>    
                 <div className="flex justify-start">
-                    <div className="flex flex-col w-2/5  rounded-lg shadow-lg bg-white p-2 mt-8 ml-8">
+                    <div className="flex flex-col w-60 sm:w-fit   rounded-lg shadow-lg bg-white p-2 mt-8 ml-8">
                         <div className="flex justify-start mb-3">
                             <h1 className="font-semibold text-2xl">Description Data:</h1>
                         </div>
-                        <p className="text-lg"><span className="text-xl underline  mr-4">Username:</span>{userData.username}</p>
-                        <p className="text-lg"><span className="text-xl underline mr-4">Email:</span>{userData.email}</p>
+                        <p className="text-lg wrap-break-word"><span className="text-xl underline  mr-4">Username:</span>{userData.username}</p>
+                        <p className="text-lg wrap-break-word"><span className="text-xl underline mr-4 ">Email:</span>{userData.email}</p>
                     </div>
                 </div>
             </>
