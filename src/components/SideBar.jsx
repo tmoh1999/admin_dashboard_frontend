@@ -1,6 +1,5 @@
 import { NavLink ,useNavigate} from "react-router-dom";
-import { LayoutDashboard , Package, ShoppingCart, Receipt, Menu ,LogOut,
-  PackageOpen ,UserRoundPen,ContactRound,RotateCcw } from "lucide-react";
+import { LayoutDashboard , Menu ,LogOut , CircleUserRound} from "lucide-react";
 import { useState } from "react";
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -13,7 +12,7 @@ export default function Sidebar() {
       <div className="flex items-center justify-between mb-6">
       {open &&
         <h1 className={`text-2xl font-bold`}>
-          DeltaPOS 
+          My App 
         </h1>
        }
         <button onClick={() => setOpen(!open)}>
@@ -33,7 +32,16 @@ export default function Sidebar() {
           <LayoutDashboard size={22} />
           {open && <span>Dashboard</span>}
         </NavLink>
-
+        <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+                `flex items-center gap-2 p-3 rounded-lg transition
+                ${isActive ? "bg-gray-700" : "hover:bg-gray-800"}`
+            }
+            >
+            <CircleUserRound size={22} />
+            {open && <span>Profile</span>}
+        </NavLink>
         <NavLink
             to="/logout"
             className={({ isActive }) =>
