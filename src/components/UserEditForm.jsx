@@ -17,7 +17,7 @@ export default function UserEditForm({ initialData = { username: "", email: "" }
     setLoading(true);
     try {
       const payload = { username: form.username, email: form.email };
-      const result = await apiRequest("/api/users/edit", { method: "PUT", body: JSON.stringify(payload) });
+      const result = await apiRequest("/api/users/me", { method: "PUT", body: JSON.stringify(payload) });
       onSaved && onSaved(result);
     } catch (err) {
       setError(err.message || "Save failed");
