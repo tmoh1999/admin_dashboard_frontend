@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { login, resetPassword } from "../api";
 
 export default function Login() {
@@ -14,6 +15,7 @@ export default function Login() {
   const [resetLoading, setResetLoading] = useState(false);
   const [resetMessage, setResetMessage] = useState("");
   const [resetError, setResetError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -66,9 +68,19 @@ export default function Login() {
           <label htmlFor="login" className="block text-xl text-gray-700 font-medium mb-1">Login</label>
           <input onChange={handleChange} placeholder="Username or Email Address" value={formData.login} id="login" name="login" className="border p-2 rounded-lg w-full" required />
         </div>
-        <div className="w-full">
+        <div className="w-full relative">
           <label htmlFor="password" className="block text-xl text-gray-700 font-medium mb-1">Password</label>
-          <input onChange={handleChange} placeholder="Password" value={formData.password} id="password" type="password" className="border p-2 rounded-lg w-full" name="password" required />
+          <div className="relative">
+            <input onChange={handleChange} placeholder="Password" value={formData.password} id="password" type={showPassword ? "text" : "password"} className="border p-2 rounded-lg w-full pr-12" name="password" required />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute inset-y-0 right-2 flex items-center text-gray-600 hover:text-gray-900"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
         <button type="submit" disabled={loading} className="bg-blue-600 text-white py-2 px-8 font-medium text-xl rounded-xl hover:bg-blue-700">
           {loading ? "Logging in..." : "Login"}

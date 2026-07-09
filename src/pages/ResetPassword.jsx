@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import { confirmResetPassword } from "../api";
 
 export default function ResetPassword() {
@@ -12,6 +13,8 @@ export default function ResetPassword() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,34 +65,54 @@ export default function ResetPassword() {
         {error && <div className="bg-red-100 text-red-700 p-2 rounded w-full">{error}</div>}
         {success && <div className="bg-green-100 text-green-700 p-2 rounded w-full">{success}</div>}
 
-        <div className="w-full">
+        <div className="w-full relative">
           <label htmlFor="password" className="block text-xl text-gray-700 font-medium mb-1">
             New Password
           </label>
-          <input
-            onChange={handleChange}
-            value={formData.password}
-            id="password"
-            name="password"
-            type="password"
-            className="border p-2 rounded-lg w-full"
-            required
-          />
+          <div className="relative">
+            <input
+              onChange={handleChange}
+              value={formData.password}
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              className="border p-2 rounded-lg w-full pr-12"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute inset-y-0 right-2 flex items-center text-gray-600 hover:text-gray-900"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
-        <div className="w-full">
+        <div className="w-full relative">
           <label htmlFor="confirmPassword" className="block text-xl text-gray-700 font-medium mb-1">
             Confirm Password
           </label>
-          <input
-            onChange={handleChange}
-            value={formData.confirmPassword}
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            className="border p-2 rounded-lg w-full"
-            required
-          />
+          <div className="relative">
+            <input
+              onChange={handleChange}
+              value={formData.confirmPassword}
+              id="confirmPassword"
+              name="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              className="border p-2 rounded-lg w-full pr-12"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className="absolute inset-y-0 right-2 flex items-center text-gray-600 hover:text-gray-900"
+              aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+            >
+              {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
         <button
