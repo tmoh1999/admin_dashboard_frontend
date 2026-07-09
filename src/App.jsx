@@ -7,6 +7,7 @@ import LogOut from "./pages/LogOut";
 import Register from "./pages/Register";
 import Sidebar from "./components/SideBar";
 import UserProfile from "./pages/UserProfile";
+import ResetPassword from "./pages/ResetPassword";
 export default function App() {
   return (
     <div className="flex h-screen">
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<LogOut />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
         </div>
       </div>
