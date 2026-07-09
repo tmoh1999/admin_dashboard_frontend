@@ -30,3 +30,11 @@ export function register(formData) {
     }),
   });
 }
+
+export function resetPassword(email) {
+  return request("/api/auth/password-reset", {
+    method: "POST",
+    skipAuth: true,
+    body: JSON.stringify({ email }),
+  });
+}
