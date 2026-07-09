@@ -38,3 +38,11 @@ export function resetPassword(email) {
     body: JSON.stringify({ email }),
   });
 }
+
+export function confirmResetPassword(token, password) {
+  return request(`/api/auth/reset-password/${token}`, {
+    method: "POST",
+    skipAuth: true,
+    body: JSON.stringify({ password }),
+  });
+}
