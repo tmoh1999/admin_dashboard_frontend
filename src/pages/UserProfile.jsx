@@ -1,12 +1,14 @@
-import { useLocation } from "react-router-dom";
-import { apiGet } from "../api";
+import { useLocation, useNavigate } from "react-router-dom";
+import { apiGet, logout, request } from "../api";
 import { useEffect, useState } from "react";
 import NoDataFound from "../components/NoDataFound";
 import UserEditForm from "../components/UserEditForm";
 export default function UserProfile(){
 const {state}=useLocation();
+const navigate = useNavigate();
 const [error, setError] = useState("");
 const [loading, setLoading] = useState(false);
+const [deleting, setDeleting] = useState(false);
 const [userData,setUserData]=useState({
     "id":null,
     "username":"",
@@ -33,6 +35,27 @@ useEffect(()=>{
 },[state]);
 function handleEditToggle(){
     setShowEdit(v => !v);
+}
+
+async function handleDeleteAccount() {
+    const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+    if (!confirmed) {
+        return;
+    }
+
+    setDeleting(true);
+    setError("");
+
+    try {
+        await request("/api/users/me", { method: "DELETE" });
+        logout();
+        navigate("/login");
+    } catch (err) {
+        setError(err.message || "Failed to delete account.");
+    } finally {
+        setDeleting(false);
+    }
 }
 
 function handleSaved(result){
@@ -65,6 +88,13 @@ return (
                                 {showEdit? 'Close' : 'Edit User'}
                             </button>
                         </div>
+                        <button
+                            onClick={handleDeleteAccount}
+                            disabled={deleting}
+                            className="mb-4 w-fit bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed"
+                        >
+                            {deleting ? "Deleting..." : "Delete Account"}
+                        </button>
                         {!showEdit ? (
                             <>
                                 <p className="text-lg wrap-break-word"><span className="text-xl underline  mr-4">Username:</span>{userData.username}</p>
