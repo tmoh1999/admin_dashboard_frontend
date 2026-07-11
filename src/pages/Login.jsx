@@ -48,7 +48,10 @@ export default function Login() {
     setResetLoading(true);
 
     try {
-      await resetPassword(resetEmail);
+      const response=await resetPassword(resetEmail);
+      if(response?.verification_url){
+        window.open(response.verification_url, "_blank");
+      }
       setResetMessage("Password reset link sent to your email!");
       setResetEmail("");
       setTimeout(() => setShowResetModal(false), 2000);
