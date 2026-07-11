@@ -4,6 +4,7 @@ const USER_STORAGE_KEY = "user";
 
 let inMemoryAccessToken = null;
 let refreshPromise = null;
+const authStateListeners = new Set();
 
 function getBrowserStorage() {
   if (typeof window === "undefined") {
@@ -30,6 +31,22 @@ export function getCurrentUser() {
     return JSON.parse(raw);
   } catch {
     return null;
+  }
+}
+
+export function subscribeToAuthState(callback) {
+  if (typeof callback !== "function") return () => {};
+
+  authStateListeners.add(callback);
+
+  return () => {
+    authStateListeners.delete(callback);
+  };
+}
+
+function emitAuthStateChange() {
+  for (const callback of [...authStateListeners]) {
+    callback(getCurrentUser());
   }
 }
 
@@ -65,6 +82,8 @@ export function storeAuthSession(payload = {}) {
     }
   }
 
+  emitAuthStateChange();
+
   return accessToken;
 }
 
@@ -77,6 +96,8 @@ export function clearAuthSession() {
     storage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
     storage.removeItem(USER_STORAGE_KEY);
   }
+
+  emitAuthStateChange();
 }
 
 export async function refreshAccessToken() {
@@ -121,7 +142,7 @@ export async function refreshAccessToken() {
     storeAuthSession({
       access_token: nextAccessToken,
       refresh_token: nextRefreshToken,
-      user: result.user || null,
+      user: result.user || getCurrentUser() || null,
     });
 
     return nextAccessToken;

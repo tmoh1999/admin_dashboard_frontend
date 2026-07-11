@@ -1,10 +1,19 @@
-import { NavLink ,useNavigate} from "react-router-dom";
-import { LayoutDashboard , Menu ,LogOut , CircleUserRound} from "lucide-react";
-import { useState } from "react";
-import { getCurrentUser } from "../api";
+import { NavLink } from "react-router-dom";
+import { LayoutDashboard , Menu ,LogOut , CircleUserRound ,UsersRound} from "lucide-react";
+import { useEffect, useState } from "react";
+import { getCurrentUser, subscribeToAuthState } from "../api";
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
-  const currentUser = getCurrentUser();
+  const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthState(() => {
+      setCurrentUser(getCurrentUser());
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     
     <div className={`h-screen flex flex-col bg-gray-900 text-white p-4 transition-all duration-300
@@ -52,7 +61,7 @@ export default function Sidebar() {
               ${isActive ? "bg-gray-700" : "hover:bg-gray-800"}`
             }
           >
-            <LayoutDashboard size={22} />
+            <UsersRound size={22} />
             {open && <span>Users</span>}
           </NavLink>
         )}
