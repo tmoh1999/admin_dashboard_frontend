@@ -13,6 +13,7 @@ const [userData,setUserData]=useState({
     "id":null,
     "username":"",
     "email":"",
+    "role":"",
 });
 const [showEdit, setShowEdit] = useState(false);
 useEffect(()=>{
@@ -25,6 +26,7 @@ useEffect(()=>{
             id:result.id,
             username:result.username,
             email:result.email,
+            role:result.role,
         }));
         
     }).catch(err => {
@@ -60,7 +62,7 @@ async function handleDeleteAccount() {
 
 function handleSaved(result){
     if(result){
-        setUserData(prev => ({ ...prev, username: result.username, email: result.email }));
+        setUserData(prev => ({ ...prev, username: result.username, email: result.email, role: result.role }));
     }
     setShowEdit(false);
 }
@@ -99,6 +101,7 @@ return (
                             <>
                                 <p className="text-lg wrap-break-word"><span className="text-xl underline  mr-4">Username:</span>{userData.username}</p>
                                 <p className="text-lg wrap-break-word"><span className="text-xl underline mr-4 ">Email:</span>{userData.email}</p>
+                                <p className="text-lg wrap-break-word"><span className="text-xl underline mr-4 ">Role:</span>{userData.role}</p>
                             </>
                         ) : (
                             <UserEditForm initialData={userData} onSaved={handleSaved} onCancel={() => setShowEdit(false)} />
