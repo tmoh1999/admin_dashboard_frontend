@@ -22,6 +22,17 @@ export function getAccessToken() {
   return inMemoryAccessToken || getBrowserStorage()?.getItem(ACCESS_TOKEN_STORAGE_KEY) || null;
 }
 
+export function getCurrentUser() {
+  const storage = getBrowserStorage();
+  const raw = storage?.getItem(USER_STORAGE_KEY) || null;
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
 export function hasAuthSession() {
   return Boolean(getAccessToken() || getStoredRefreshToken());
 }
