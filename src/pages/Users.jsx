@@ -16,11 +16,11 @@ export default function Users() {
     setError("");
     apiGet("/api/users")
       .then((result) => {
-        setUsers(Array.isArray(result) ? result : []);
+        setUsers(Array.isArray(result?.users) ? result.users : []);
       })
       .catch((err) => setError(err.message || "Failed to load users"))
       .finally(() => setLoading(false));
-  }, [currentUser]);
+  }, []);
 
   if (!currentUser || currentUser.role !== "admin") {
     return (
