@@ -11,11 +11,11 @@ import ResetPassword from "./pages/ResetPassword";
 import Users from "./pages/Users";
 export default function App() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen min-w-fit">
       <ErrorBoundary>
       <Sidebar />  
       <div className="overflow-y-auto w-full ">
-        <div className="h-fit  ">
+        <div className="h-fit  px-1">
           <Routes>
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
