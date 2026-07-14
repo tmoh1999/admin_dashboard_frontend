@@ -1,4 +1,5 @@
 import { request } from "./http";
+import { useNavigate } from "react-router-dom";
 export const api = {
     users: {
         add: addUser,
@@ -7,6 +8,7 @@ export const api = {
         profilePath:"/user/profile",
         profileKeys:["id"],
         rootpath:"/api/users",
+        actions:[{label:"Reset Password",path:"/",keys:["id"]}],
     },
 };
 export const columns= {
