@@ -13,7 +13,8 @@ export default function Table({ mode="view",data=[], columns=[] ,profilePath="/"
   ,setPage,pages=1,page=1,
   search, setSearch,
   sortColumn, setSortColumn,
-  sortOrder, setSortOrder
+  sortOrder, setSortOrder,
+  actions=[]
   }) {
   const navigate=useNavigate();
   const [showConfirm,setShowConfirm]=useState(false);
@@ -113,6 +114,17 @@ const handleRemove = (e,row) => {
     }
 }
 
+const handleAction =(e,row,action) => {
+  if(action.path){
+    let state={}
+    for(let col of action.keys){
+      state[col]=row[col];
+    }
+    navigate(action.path,{
+      state:state
+    });
+  }
+}
 
 const addEmptyRow = () => {
     if (addRow && !editingRow) {
@@ -199,6 +211,11 @@ const addEmptyRow = () => {
                 <tr key={row.id} className="odd:bg-white even:bg-gray-100">
                   {columns.map((col) => (
                     <TableCell key={`${row.id}-${col.accessor}`}  Editable={editingRow === row.id && col.edit && Edit} val={getRowValue(row, col.accessor)} type="text" name={col.accessor} onChanged={(e) => handleChange(e,row)}/>
+                  ))}
+                  {actions.map((action) => (
+                    <td  key={`${row.id}-action`} className="p-2 border">
+                      <button type="button"  onClick={(e) => handleAction(e,row,action)} id={row.id}  className="p-1 font-semibold rounded-xl shadow-lg  bg-blue-400 hover:bg-blue-500">{action.label}</button>
+                    </td>                    
                   ))}
                   {mode==="view" ? (
                     editingRow === row.id ? 

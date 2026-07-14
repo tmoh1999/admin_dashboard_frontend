@@ -53,6 +53,7 @@ export default function DTable({
             saveRow={api[tableMode].update}
             profilePath={api[tableMode].profilePath}
             profileKeys={api[tableMode].profileKeys}
+            actions={api[tableMode].actions}
             rootpath={api[tableMode].rootpath}
             setSelectedRow={setSelectedRow}
             setPage={setPage}
