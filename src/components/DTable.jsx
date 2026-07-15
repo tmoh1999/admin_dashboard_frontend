@@ -23,7 +23,6 @@ export default function DTable({
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
-        console.log("DTable useEffect triggered with search:", search, "sortColumn:", sortColumn, "sortOrder:", sortOrder);
         setLoading(true);
         setError("");
         apiGet(
