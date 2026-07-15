@@ -51,8 +51,6 @@ export default function DTable({
             addRow={api[tableMode].add}
             removeRow={api[tableMode].remove}
             saveRow={api[tableMode].update}
-            profilePath={api[tableMode].profilePath}
-            profileKeys={api[tableMode].profileKeys}
             actions={api[tableMode].actions}
             rootpath={api[tableMode].rootpath}
             setSelectedRow={setSelectedRow}

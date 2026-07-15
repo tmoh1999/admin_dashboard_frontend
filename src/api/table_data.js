@@ -5,10 +5,11 @@ export const api = {
         add: addUser,
         update: updateUser,
         remove: removeUser,
-        profilePath:"/user/profile",
-        profileKeys:["id"],
         rootpath:"/api/users",
-        actions:[{label:"Reset Password",path:"/",keys:["id"]}],
+        actions:[
+          {label:"Reset Password",path:"/",keys:["id"]},
+          {label:"View",path:"/user/profile",keys:["id"],color:"bg-green-400 hover:bg-green-500"},
+        ],
     },
 };
 export const columns= {

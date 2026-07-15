@@ -5,7 +5,7 @@ import ConfirmMessage from "./confirmMessage"
 import { downloadFile } from "../api";
 import Pagination from "./Pagination";
 import NoDataFound from "./NoDataFound";
-export default function Table({ mode="view",data=[], columns=[] ,profilePath="/",profileKeys=[],
+export default function Table({ mode="view",data=[], columns=[] ,
   SelectName="Select",Edit=false,
   rootpath,refreshParent,loading=false,
   setSelectedRow,removeRow,saveRow,addRow,
@@ -95,17 +95,7 @@ const handleSave = async (e,row) => {
 
 }
 
-const handleView = (e,row) => {
-  let state={}
-  for(let col of profileKeys){
-    state[col]=row[col];
-  }
-  if(profilePath){           
-    navigate(profilePath,{
-      state:state
-    });
-  }
-}
+
 
 const handleRemove = (e,row) => {
     if(removeRow){
@@ -214,7 +204,7 @@ const addEmptyRow = () => {
                   ))}
                   {actions.map((action) => (
                     <td  key={`${row.id}-action`} className="p-2 border">
-                      <button type="button"  onClick={(e) => handleAction(e,row,action)} id={row.id}  className="p-1 font-semibold rounded-xl shadow-lg  bg-blue-400 hover:bg-blue-500">{action.label}</button>
+                      <button type="button"  onClick={(e) => handleAction(e,row,action)} id={row.id}  className={`p-1 font-semibold rounded-xl shadow-lg ${action?.color || "bg-blue-400 hover:bg-blue-500" }`}>{action.label}</button>
                     </td>                    
                   ))}
                   {mode==="view" ? (
@@ -227,10 +217,6 @@ const addEmptyRow = () => {
                     :
                     (
                       <>
-                        <td  key={`${row.id}-view`} className="p-2 border">
-                          <button type="button"  onClick={(e) => handleView(e,row)} id={row.id} data-key="view" className="p-1 font-semibold rounded-xl shadow-lg  bg-green-400 hover:bg-green-500">View</button>
-                        </td>
-                        
                         <td  key={`${row.id}-edit`} className="p-2 border">
                           <button type="button"  onClick={(e) => setEditingRow(row.id)} id={row.id} data-key="update" className="p-1 font-semibold rounded-xl shadow-lg  bg-orange-400 hover:bg-orange-500">Edit</button>
                         </td>
