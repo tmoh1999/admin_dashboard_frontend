@@ -147,7 +147,7 @@ export default function UserProfile() {
         <div className="flex justify-start">
           <div className="flex flex-col w-60 sm:w-fit rounded-lg shadow-lg bg-white p-2 mt-8 ml-8">
             <div className="flex items-center justify-start mb-3">
-              <h1 className="font-semibold text-2xl mr-4">{isAdminView ? "Admin User Profile" : "Description Data:"}</h1>
+              <h1 className="font-semibold text-2xl mr-4">{isAdminView ? "User Profile" : "Description Data:"}</h1>
               <button onClick={handleEditToggle} className="ml-2 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
                 {showEdit ? "Close" : "Edit User"}
               </button>
