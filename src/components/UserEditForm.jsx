@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { request as apiRequest } from "../api";
 
 function normalizeBoolean(value) {
@@ -15,6 +16,7 @@ export default function UserEditForm({
   userId = null,
   mode = "self",
 }) {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     id: initialData.id ?? userId ?? "",
     username: initialData.username || "",
@@ -77,6 +79,11 @@ export default function UserEditForm({
     }
   }
 
+  async function handleResetPassword(e) {
+    e.preventDefault();
+    navigate(`/admin/reset-password`, { state: { userId: form.id || userId } });
+  }
+
   return (
     <form onSubmit={handleSave} className="flex flex-col gap-3 min-w-[280px]">
       {error && <div className="text-sm text-red-600">{error}</div>}
@@ -95,6 +102,16 @@ export default function UserEditForm({
             <div className="text-xs font-medium">Role</div>
             <input name="role" value={form.role || ""} onChange={handleChange} className="border rounded px-2 py-1 w-full" />
           </label>
+          <div className="text-sm">
+            <div className="text-xs font-medium mb-1">Reset Password</div>
+            <button
+              type="button"
+              onClick={handleResetPassword}
+              className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 w-full"
+            >
+              Reset Password
+            </button>
+          </div>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" name="is_active" checked={Boolean(form.is_active)} onChange={handleCheckboxChange} />
             <span className="text-xs font-medium">Active</span>

@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Sidebar from "./components/SideBar";
 import UserProfile from "./pages/UserProfile";
 import ResetPassword from "./pages/ResetPassword";
+import AdminResetPassword from "./pages/AdminResetPassword";
 import Users from "./pages/Users";
 export default function App() {
   return (
@@ -26,6 +27,8 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<LogOut />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/admin/reset-password" element={<ProtectedRoute><AdminResetPassword /></ProtectedRoute>} />
+
           </Routes>
         </div>
       </div>
