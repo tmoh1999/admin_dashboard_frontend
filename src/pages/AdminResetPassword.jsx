@@ -55,7 +55,7 @@ export default function AdminResetPassword() {
       });
       setSuccess("Password updated successfully.");
       setFormData({ password: "", confirmPassword: "" });
-      setTimeout(() => navigate("/users"), 1500);
+      setTimeout(() => navigate(-1), 1500);
     } catch (err) {
       setError(err.message || "Failed to reset password");
     } finally {
@@ -64,7 +64,7 @@ export default function AdminResetPassword() {
   };
 
   const handleCancel = () => {
-    navigate("/users");
+    navigate(-1);
   };
 
   return (
