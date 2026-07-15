@@ -202,8 +202,8 @@ const addEmptyRow = () => {
                   {columns.map((col) => (
                     <TableCell key={`${row.id}-${col.accessor}`}  Editable={editingRow === row.id && col.edit && Edit} val={getRowValue(row, col.accessor)} type="text" name={col.accessor} onChanged={(e) => handleChange(e,row)}/>
                   ))}
-                  {actions.map((action) => (
-                    <td  key={`${row.id}-action`} className="p-2 border">
+                  {actions.map((action,index) => (
+                    <td  key={`${row.id}-action-${index}`} className="p-2 border">
                       <button type="button"  onClick={(e) => handleAction(e,row,action)} id={row.id}  className={`p-1 font-semibold rounded-xl shadow-lg ${action?.color || "bg-blue-400 hover:bg-blue-500" }`}>{action.label}</button>
                     </td>                    
                   ))}
