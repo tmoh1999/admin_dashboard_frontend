@@ -217,9 +217,11 @@ const addEmptyRow = () => {
                     :
                     (
                       <>
-                        <td  key={`${row.id}-edit`} className="p-2 border">
-                          <button type="button"  onClick={(e) => setEditingRow(row.id)} id={row.id} data-key="update" className="p-1 font-semibold rounded-xl shadow-lg  bg-orange-400 hover:bg-orange-500">Edit</button>
-                        </td>
+                        {Edit &&
+                          <td  key={`${row.id}-edit`} className="p-2 border">
+                            <button type="button"  onClick={(e) => setEditingRow(row.id)} id={row.id} data-key="update" className="p-1 font-semibold rounded-xl shadow-lg  bg-orange-400 hover:bg-orange-500">Edit</button>
+                          </td>
+                        }
                         
                         <td key={`${row.id}-remove`} className="p-2 border">
                           <button type="button"  onClick={(e) => handleRemove(e,row)} id={row.id} data-key="remove" className="p-1 font-semibold rounded-xl shadow-lg  bg-red-400 hover:bg-red-500">Remove</button>
