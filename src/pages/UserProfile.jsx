@@ -19,6 +19,8 @@ export default function UserProfile() {
     username: "",
     email: "",
     role: "",
+    is_active: false,
+    is_email_verified: false,
     created_at: "",
   });
   const [showEdit, setShowEdit] = useState(false);
@@ -46,7 +48,9 @@ export default function UserProfile() {
             id: result.id,
             username: result.username,
             email: result.email,
-            role: result.role,
+            role: result.role?.value ?? result.role ?? "",
+            is_active: result.is_active ?? false,
+            is_email_verified: result.is_email_verified ?? false,
             created_at: result.created_at,
           });
         })
@@ -66,7 +70,9 @@ export default function UserProfile() {
           id: result.id,
           username: result.username,
           email: result.email,
-          role: result.role,
+          role: result.role?.value ?? result.role ?? "",
+          is_active: result.is_active ?? false,
+          is_email_verified: result.is_email_verified ?? false,
           created_at: result.created_at,
         });
       })
@@ -105,7 +111,14 @@ export default function UserProfile() {
 
   function handleSaved(result) {
     if (result) {
-      setUserData((prev) => ({ ...prev, username: result.username, email: result.email, role: result.role }));
+      setUserData((prev) => ({
+        ...prev,
+        username: result.username ?? prev.username,
+        email: result.email ?? prev.email,
+        role: result.role?.value ?? result.role ?? prev.role,
+        is_active: result.is_active ?? prev.is_active,
+        is_email_verified: result.is_email_verified ?? prev.is_email_verified,
+      }));
     }
     setShowEdit(false);
   }
@@ -129,11 +142,9 @@ export default function UserProfile() {
           <div className="flex flex-col w-60 sm:w-fit rounded-lg shadow-lg bg-white p-2 mt-8 ml-8">
             <div className="flex items-center justify-start mb-3">
               <h1 className="font-semibold text-2xl mr-4">{isAdminView ? "Admin User Profile" : "Description Data:"}</h1>
-              {!isAdminView && (
-                <button onClick={handleEditToggle} className="ml-2 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
-                  {showEdit ? "Close" : "Edit User"}
-                </button>
-              )}
+              <button onClick={handleEditToggle} className="ml-2 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                {showEdit ? "Close" : "Edit User"}
+              </button>
             </div>
 
             {!isAdminView && (
@@ -146,7 +157,15 @@ export default function UserProfile() {
               </button>
             )}
 
-            {!showEdit || isAdminView ? (
+            {showEdit ? (
+              <UserEditForm
+                initialData={userData}
+                onSaved={handleSaved}
+                onCancel={() => setShowEdit(false)}
+                userId={userData.id || targetUserId}
+                mode={isAdminView ? "admin" : "self"}
+              />
+            ) : (
               <>
                 {isAdminView && (
                   <p className="text-lg wrap-break-word mb-2">
@@ -167,12 +186,18 @@ export default function UserProfile() {
                   {userData.role}
                 </p>
                 <p className="text-lg wrap-break-word">
+                  <span className="text-xl underline mr-4">Active:</span>
+                  {userData.is_active ? "Yes" : "No"}
+                </p>
+                <p className="text-lg wrap-break-word">
+                  <span className="text-xl underline mr-4">Email Verified:</span>
+                  {userData.is_email_verified ? "Yes" : "No"}
+                </p>
+                <p className="text-lg wrap-break-word">
                   <span className="text-xl underline mr-4">Created At:</span>
                   {userData.created_at}
-                </p>                
+                </p>
               </>
-            ) : (
-              <UserEditForm initialData={userData} onSaved={handleSaved} onCancel={() => setShowEdit(false)} />
             )}
           </div>
         </div>
