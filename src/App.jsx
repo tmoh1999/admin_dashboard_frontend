@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import ErrorBoundary from "./tools/ErrorBoundary";
@@ -10,7 +11,32 @@ import UserProfile from "./pages/UserProfile";
 import ResetPassword from "./pages/ResetPassword";
 import AdminResetPassword from "./pages/AdminResetPassword";
 import Users from "./pages/Users";
+import { sendHeartbeat } from "./api/auth";
+import { hasAuthSession, subscribeToAuthState } from "./api/storage";
+
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(hasAuthSession());
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthState(() => {
+      setIsAuthenticated(hasAuthSession());
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      void sendHeartbeat().catch(() => {});
+    }, 1 * 60 * 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [isAuthenticated]);
+
   return (
     <div className="flex h-screen">
       <ErrorBoundary>

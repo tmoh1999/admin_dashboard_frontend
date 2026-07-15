@@ -46,3 +46,9 @@ export function confirmResetPassword(token, password) {
     body: JSON.stringify({ password }),
   });
 }
+
+export function sendHeartbeat() {
+  return request("/api/auth/heartbeat", {
+    method: "POST",
+  });
+}
