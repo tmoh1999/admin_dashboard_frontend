@@ -32,7 +32,7 @@ export default function App() {
 
     const intervalId = window.setInterval(() => {
       void sendHeartbeat().catch(() => {});
-    }, 1 * 60 * 1000);
+    }, 4 * 60 * 1000);
 
     return () => window.clearInterval(intervalId);
   }, [isAuthenticated]);
