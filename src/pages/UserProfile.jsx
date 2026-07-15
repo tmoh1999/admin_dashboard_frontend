@@ -182,8 +182,8 @@ export default function UserProfile() {
                 <p className="text-lg wrap-break-word flex items-center gap-2">
                   <span className="text-xl underline mr-2">Status:</span>
                   <span
-                    className={`inline-block h-3 w-3 rounded-full ${userData.is_active ? "bg-green-500" : "bg-red-500"}`}
-                    title={userData.is_active ? "Active" : "Inactive"}
+                    className={`inline-block h-3 w-3 rounded-full ${userData.status=="online" ? "bg-green-500" : "bg-red-500"}`}
+                    title={userData.status=="online" ? "Online" : "Offline"}
                   />
                   <span>{userData.status}</span>
                 </p>
