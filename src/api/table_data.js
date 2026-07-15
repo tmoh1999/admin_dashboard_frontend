@@ -7,8 +7,7 @@ export const api = {
         remove: removeUser,
         rootpath:"/api/users",
         actions:[
-          {label:"Reset Password",path:"/",keys:["id"]},
-          {label:"View",path:"/user/profile",keys:["id"],color:"bg-green-400 hover:bg-green-500"},
+          {label:"View/Edit",path:"/user/profile",keys:["id"],color:"bg-green-400 hover:bg-green-500"},
         ],
     },
 };

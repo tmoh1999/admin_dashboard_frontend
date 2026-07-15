@@ -31,7 +31,6 @@ export default function Users() {
         TableName="Users"
         refreshKey={refreshKey}
         refreshParent={() => setRefreshKey(prev => prev + 1)}
-        Edit={true}
       />
     </div>
   );
