@@ -13,12 +13,15 @@ export const api = {
 };
 export const columns= {
     users:[
+
         { label: "ID", accessor: "id",edit:false },
         { label: "Username", accessor: "username",edit:true },
         { label: "Email", accessor: "email",edit:true },
         { label: "IsEmailVerified", accessor: "is_email_verified",edit:false },
         { label: "Role", accessor: "role",edit:true },
         { label: "IsActive", accessor: "is_active",edit:true },
+        { label: "Status", accessor: "status",edit:false },
+        { label: "Last Seen", accessor: "last_seen",edit:false },
         { label: "Created At", accessor: "created_at",edit:false },
     ],
 };

@@ -21,6 +21,8 @@ export default function UserProfile() {
     role: "",
     is_active: false,
     is_email_verified: false,
+    status: "",
+    last_seen: "",
     created_at: "",
   });
   const [showEdit, setShowEdit] = useState(false);
@@ -51,6 +53,8 @@ export default function UserProfile() {
             role: result.role?.value ?? result.role ?? "",
             is_active: result.is_active ?? false,
             is_email_verified: result.is_email_verified ?? false,
+            status: result.status ?? "",
+            last_seen: result.last_seen ?? "",
             created_at: result.created_at,
           });
         })
@@ -73,6 +77,8 @@ export default function UserProfile() {
           role: result.role?.value ?? result.role ?? "",
           is_active: result.is_active ?? false,
           is_email_verified: result.is_email_verified ?? false,
+          status: result.status ?? "",
+          last_seen: result.last_seen ?? "",
           created_at: result.created_at,
         });
       })
@@ -174,6 +180,10 @@ export default function UserProfile() {
                   </p>
                 )}
                 <p className="text-lg wrap-break-word">
+                  <span className="text-xl underline mr-4">Status:</span>
+                  {userData.status}
+                </p>                
+                <p className="text-lg wrap-break-word">
                   <span className="text-xl underline mr-4">Username:</span>
                   {userData.username}
                 </p>
@@ -193,6 +203,10 @@ export default function UserProfile() {
                   <span className="text-xl underline mr-4">Email Verified:</span>
                   {userData.is_email_verified ? "Yes" : "No"}
                 </p>
+                <p className="text-lg wrap-break-word">
+                  <span className="text-xl underline mr-4">Last Seen:</span>
+                  {userData.last_seen}
+                </p>                
                 <p className="text-lg wrap-break-word">
                   <span className="text-xl underline mr-4">Created At:</span>
                   {userData.created_at}
