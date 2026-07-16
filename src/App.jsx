@@ -10,6 +10,7 @@ import Sidebar from "./components/SideBar";
 import UserProfile from "./pages/UserProfile";
 import ResetPassword from "./pages/ResetPassword";
 import AdminResetPassword from "./pages/AdminResetPassword";
+import VerifyEmail from "./pages/VerifyEmail";
 import Users from "./pages/Users";
 import { sendHeartbeat } from "./api/auth";
 import { hasAuthSession, subscribeToAuthState } from "./api/storage";
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<LogOut />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/verify-email/:token" element={<VerifyEmail />} />
             <Route path="/admin/reset-password" element={<ProtectedRoute><AdminResetPassword /></ProtectedRoute>} />
 
           </Routes>

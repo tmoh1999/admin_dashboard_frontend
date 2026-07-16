@@ -47,6 +47,13 @@ export function confirmResetPassword(token, password) {
   });
 }
 
+export function verifyEmail(token) {
+  return request(`/api/auth/verify-email/${token}`, {
+    method: "GET",
+    skipAuth: true,
+  });
+}
+
 export function sendHeartbeat() {
   return request("/api/auth/heartbeat", {
     method: "POST",
