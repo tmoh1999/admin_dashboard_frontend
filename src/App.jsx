@@ -27,7 +27,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL;
     console.log("API URL:", apiUrl);
     if (!isAuthenticated) {
       return;
