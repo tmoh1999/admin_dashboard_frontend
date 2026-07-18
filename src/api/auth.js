@@ -2,7 +2,13 @@ import { request } from "./http";
 import { storeAuthSession, clearAuthSession } from "./storage";
 
 export async function login(formData) {
-  const result = await request("/api/auth/login", {
+  const demo = localStorage.getItem("demo");
+  let path="/api/auth/login";
+  if(demo){
+    console.log("login-demo",demo);
+    path="/api/demo/login";
+  }
+  const result = await request(path, {
     method: "POST",
     skipAuth: true,
     body: JSON.stringify({
@@ -20,7 +26,13 @@ export function logout() {
 }
 
 export function register(formData) {
-  return request("/api/auth/register", {
+  const demo = localStorage.getItem("demo");
+  let path="/api/auth/register";
+  if(demo){
+    console.log("register-demo",demo);
+    path="/api/demo/register";
+  }  
+  return request(path, {
     method: "POST",
     skipAuth: true,
     body: JSON.stringify({
