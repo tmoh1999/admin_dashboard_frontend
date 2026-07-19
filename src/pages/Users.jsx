@@ -59,7 +59,7 @@ export default function Users() {
   }
 
   return (
-    <div className="flex flex-col bg-slate-300 h-fit sm:h-screen items-center p-2 sm:p-6 min-w-150 w-full sm:w-full">
+    <div className="flex flex-col bg-slate-300 h-fit sm:h-auto items-center p-2 sm:p-6 min-w-150 w-full sm:w-full">
       <h1 className="text-3xl w-full font-bold text-center mb-6">Users Management</h1>
       
       {loading ? (
