@@ -14,6 +14,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Users from "./pages/Users";
 import { sendHeartbeat } from "./api/auth";
 import { hasAuthSession, subscribeToAuthState } from "./api/storage";
+import ExitDemoButton from "./components/ExitDemoButton";
 
 export default function App() {
   const location = useLocation();
@@ -51,6 +52,7 @@ export default function App() {
   return (
     <div className="flex h-screen">
       <ErrorBoundary>
+      <ExitDemoButton />
       <Sidebar />  
       <div className="overflow-y-auto w-full ">
         <div className="h-fit  min-w-fit px-1">
