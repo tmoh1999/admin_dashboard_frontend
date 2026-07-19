@@ -2,10 +2,9 @@ import { request } from "./http";
 import { storeAuthSession, clearAuthSession } from "./storage";
 
 export async function login(formData) {
-  const demo = localStorage.getItem("demo");
+  const demo = localStorage.getItem("demo") === "true";
   let path="/api/auth/login";
-  if(demo){
-    console.log("login-demo",demo);
+  if(demo===true){
     path="/api/demo/login";
   }
   const result = await request(path, {
@@ -26,10 +25,9 @@ export function logout() {
 }
 
 export function register(formData) {
-  const demo = localStorage.getItem("demo");
+  const demo = localStorage.getItem("demo") === "true";
   let path="/api/auth/register";
-  if(demo){
-    console.log("register-demo",demo);
+  if(demo===true){
     path="/api/demo/register";
   }  
   return request(path, {
