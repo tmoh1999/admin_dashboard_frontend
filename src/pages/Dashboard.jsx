@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { apiGet } from "../api/http";
+import { getCurrentUser } from "../api/storage";
 import { Users, UserCheck, UserX, Shield, Mail, MailCheck, Activity, Calendar } from "lucide-react";
 
 function StatCard({ title, value, icon: Icon, color }) {
@@ -19,11 +21,18 @@ function StatCard({ title, value, icon: Icon, color }) {
 }
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const user = getCurrentUser();
+    if (user?.role !== 'admin') {
+      navigate('/profile');
+      return;
+    }
+
     const fetchStats = async () => {
       try {
         const data = await apiGet("/api/users/stats");
@@ -36,7 +45,7 @@ export default function Dashboard() {
     };
 
     fetchStats();
-  }, []);
+  }, [navigate]);
 
   if (loading) {
     return (
